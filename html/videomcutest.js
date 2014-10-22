@@ -228,6 +228,12 @@ $(document).ready(function() {
 								onremotestream: function(stream) {
 									// The publisher stream is sendonly, we don't expect anything here
 								},
+								ondataopen: function(data) {
+									console.log("the datachannel is available!");
+								},
+								ondata: function(data) {
+									console.log("Message");
+								},
 								oncleanup: function() {
 									console.log(" ::: Got a cleanup notification: we are unpublished now :::");
 									$('#videolocal').html('<button id="publish" class="btn btn-primary">Publish</button>');
@@ -296,7 +302,7 @@ function publishOwnFeed() {
 	$('#publish').attr('disabled', true).unbind('click');
 	mcutest.createOffer(
 		{
-			media: { audioRecv: false, videoRecv: false},	// Publishers are sendonly
+			media: { audioRecv: false, videoRecv: false, data: true}, // Publishers are sendonly
 			success: function(jsep) {
 				console.log("Got publisher SDP!");
 				console.log(jsep);
@@ -373,7 +379,7 @@ function newRemoteFeed(id, display) {
 					remoteFeed.createAnswer(
 						{
 							jsep: jsep,
-							media: { audioSend: false, videoSend: false },	// We want recvonly audio/video
+							media: { audioSend: false, videoSend: false, data: true },	// We want recvonly audio/video
 							success: function(jsep) {
 								console.log("Got SDP!");
 								console.log(jsep);
@@ -423,6 +429,12 @@ function newRemoteFeed(id, display) {
 						$('#curbitrate'+remoteFeed.rfindex).text(bitrate);
 					}, 1000);
 				}
+			},
+			ondataopen: function(data) {
+				console.log("The DataChannel is available!");
+			},
+			ondata: function(data) {
+				console.log("Something");
 			},
 			oncleanup: function() {
 				console.log(" ::: Got a cleanup notification (remote feed " + id + ") :::");
