@@ -288,7 +288,8 @@ typedef struct janus_videoroom_data_relay_packet {
 #define sdp_d_template \
 		"m=application 1 DTLS/SCTP 5000\r\n" \
 		"c=IN IP4 1.1.1.1\r\n" \
-		"a=%s\r\n"				/* Media direction */
+		"a=%s\r\n"				/* Media direction */ \
+		"a=sctpmap:5000 webrtc-datachannel 16\r\n"
 
 
 /* Error codes */
@@ -2142,7 +2143,7 @@ static void *janus_videoroom_handler(void *data) {
 				int b = 0;
 				if(participant->firefox)	/* Don't add any b=AS attribute for Chrome */
 					b = (int)(videoroom->bitrate/1000);
-				char sdp[1024], audio_mline[256], video_mline[512], data_mline[128];
+				char sdp[1280], audio_mline[256], video_mline[512], data_mline[256];
 				if(audio) {
 					g_snprintf(audio_mline, 256, sdp_a_template,
 						OPUS_PT,						/* Opus payload type */
@@ -2165,12 +2166,12 @@ static void *janus_videoroom_handler(void *data) {
 					video_mline[0] = '\0';
 				}
 				if(data) {
-					g_snprintf(data_mline, 128, sdp_d_template,
-						"recvonly");						/* The publisher gets a recvonly back */
+					g_snprintf(data_mline, 256, sdp_d_template,
+						"sendrecv");				/* Data channels can be safely open both ways */
 				} else {
 					data_mline[0] = '\0';
 				}
-				g_snprintf(sdp, 1024, sdp_template,
+				g_snprintf(sdp, 1280, sdp_template,
 					janus_get_monotonic_time(),		/* We need current time here */
 					janus_get_monotonic_time(),		/* We need current time here */
 					participant->room->room_name,	/* Video room name */
