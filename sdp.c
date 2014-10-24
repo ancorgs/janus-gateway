@@ -78,7 +78,7 @@ janus_sdp *janus_sdp_preparse(const char *jsep_sdp, int *audio, int *video, int 
 		m = m->m_next;
 	}
 #ifdef HAVE_SCTP
-	*data = (strstr(jsep_sdp, "DTLS/SCTP") && !strstr(jsep_sdp, "0 DTLS/SCTP")) ? 1 : 0;	/* FIXME This is a really hacky way of checking... */
+	*data = (strstr(jsep_sdp, "DTLS/SCTP") && !strstr(jsep_sdp, " 0 DTLS/SCTP")) ? 1 : 0;	/* FIXME This is a really hacky way of checking... */
 #else
 	*data = 0;
 #endif
