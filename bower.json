@@ -21,7 +21,7 @@
     "Scott <scottmortonashton@gmail.com>"
   ],
   "description": "A javascript library for interacting with the C based Janus WebRTC Gateway",
-  "main": "./html/janus.js",
+  "main": "./html/bower-janus.js",
   "license": "GPLv3",
   "ignore": [
     "**/.*",
@@ -33,7 +33,6 @@
     "tests"
   ],
   "dependencies": {
-    "janus-gateway-adapter": "git://github.com/jangouts/janus-gateway-adapter/",
     "jquery": "*"    
   }
 }
