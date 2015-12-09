@@ -1,6 +1,6 @@
 {
   "name": "janus-gateway",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "homepage": "https://github.com/meetecho/janus-gateway",
   "authors": [
     "Lorenzo Miniero <lorenzo@meetecho.com>",
@@ -33,7 +33,7 @@
     "tests"
   ],
   "dependencies": {
-    "adapter.js": "git://github.com/webrtc/adapter.git#d197a97c198a6dbcde7aa58c7d50d454af7bb99c",
+    "janus-gateway-adapter": "git://github.com/jangouts/janus-gateway-adapter/",
     "jquery": "*"    
   }
 }
