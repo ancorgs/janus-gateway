@@ -52,7 +52,7 @@ var defaultExtension = {
 	isInstalled: function() { return document.querySelector('#janus-extension-installed') !== null; },
 	getScreen: function (callback) {
 		var pending = window.setTimeout(function () {
-			error = new Error('NavigatorUserMediaError');
+			var error = new Error('NavigatorUserMediaError');
 			error.name = 'The required Chrome extension is not installed: click <a href="#">here</a> to install it. (NOTE: this will need you to refresh the page)';
 			return callback(error);
 		}, 1000);
@@ -158,7 +158,7 @@ Janus.useDefaultDependencies = function (deps) {
 };
 
 Janus.useOldDependencies = function (deps) {
-	var jq = (deps && deps.jQuery) || jQuery;
+	var jq = (deps && deps.jQuery) || window.jQuery;
 	var socketCls = (deps && deps.WebSocket) || WebSocket;
 	return {
 		newWebSocket: function(server, proto) { return new socketCls(server, proto); },
@@ -386,7 +386,7 @@ Janus.init = function(options) {
 				Janus.webRTCAdapter.browserDetails.version < 72) {
 			// Chrome does, but it's only usable from version 72 on
 			Janus.unifiedPlan = false;
-		} else if(!('currentDirection' in RTCRtpTransceiver.prototype)) {
+		} else if(!('currentDirection' in window.RTCRtpTransceiver.prototype)) {
 			// Safari supports addTransceiver() but not Unified Plan when
 			// currentDirection is not defined (see codepen above)
 			Janus.unifiedPlan = false;
