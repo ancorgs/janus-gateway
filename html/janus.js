@@ -95,7 +95,7 @@ Janus.useDefaultDependencies = function (deps) {
 		newWebSocket: function(server, proto) { return new socketCls(server, proto); },
 		extension: (deps && deps.extension) || defaultExtension,
 		isArray: function(arr) { return Array.isArray(arr); },
-		webRTCAdapter: (deps && deps.adapter) || adapter,
+		webRTCAdapter: (deps && deps.adapter) || window.adapter,
 		httpAPICall: function(url, options) {
 			var fetchOptions = {
 				method: options.verb,
@@ -164,7 +164,7 @@ Janus.useOldDependencies = function (deps) {
 		newWebSocket: function(server, proto) { return new socketCls(server, proto); },
 		isArray: function(arr) { return jq.isArray(arr); },
 		extension: (deps && deps.extension) || defaultExtension,
-		webRTCAdapter: (deps && deps.adapter) || adapter,
+		webRTCAdapter: (deps && deps.adapter) || window.adapter,
 		httpAPICall: function(url, options) {
 			var payload = options.body !== undefined ? {
 				contentType: 'application/json',
