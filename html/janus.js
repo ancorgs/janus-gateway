@@ -22,6 +22,8 @@
 	OTHER DEALINGS IN THE SOFTWARE.
  */
 
+import adapter from 'webrtc-adapter';
+
 // List of sessions
 Janus.sessions = {};
 
@@ -426,7 +428,7 @@ Janus.randomString = function(len) {
 }
 
 
-function Janus(gatewayCallbacks) {
+export function Janus(gatewayCallbacks) {
 	if(Janus.initDone === undefined) {
 		gatewayCallbacks.error("Library not initialized");
 		return {};
